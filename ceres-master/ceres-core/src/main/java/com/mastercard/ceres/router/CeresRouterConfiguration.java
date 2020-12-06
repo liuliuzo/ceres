@@ -17,7 +17,7 @@ import com.mastercard.ceres.core.CeresHandler;
  * @date 2019-03-15 10:45
  **/
 @Configuration
-public class CeresRouter {
+public class CeresRouterConfiguration {
 
     @Bean
     public RouterFunction<ServerResponse> routeChain(CeresHandler ceresHandler) {
