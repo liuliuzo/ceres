@@ -10,33 +10,33 @@ public class CeresProperties {
      */
     public static final String PREFIX = "ceres.gateway";
 
-    private String enableMQ;
+    private String loader;
 
-    private String enableHttp;
+    private String schedulerType;
 
-    private String enableRpc;
+    private String workThreads;
 
-    public String getEnableMQ() {
-        return enableMQ;
+    public String getLoader() {
+        return loader;
     }
 
-    public void setEnableMQ(String enableMQ) {
-        this.enableMQ = enableMQ;
+    public void setLoader(String loader) {
+        this.loader = loader;
     }
 
-    public String getEnableHttp() {
-        return enableHttp;
+    public String getSchedulerType() {
+        return schedulerType;
     }
 
-    public void setEnableHttp(String enableHttp) {
-        this.enableHttp = enableHttp;
+    public void setSchedulerType(String schedulerType) {
+        this.schedulerType = schedulerType;
     }
 
-    public String getEnableRpc() {
-        return enableRpc;
+    public String getWorkThreads() {
+        return workThreads;
     }
 
-    public void setEnableRpc(String enableRpc) {
-        this.enableRpc = enableRpc;
+    public void setWorkThreads(String workThreads) {
+        this.workThreads = workThreads;
     }
 }

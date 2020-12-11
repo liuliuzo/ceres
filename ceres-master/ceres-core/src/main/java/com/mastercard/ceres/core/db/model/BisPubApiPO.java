@@ -2,22 +2,19 @@ package com.mastercard.ceres.core.db.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
-@Table(name = "bis_pub_api", schema = "shared_bis", catalog = "")
+@Table(name = "bis_pub_api", schema = "shared_bis_update", catalog = "")
 public class BisPubApiPO {
-    private String id;
-    private Long interfaceId;
-    private String env;
-    private String serverCode;
-    private String target;
-    private String mqInbound;
-    private String mqOutbound;
-    private String protocol;
+    private long id;
+    private String pubAppCode;
+    private String apiCode;
+    private String name;
     private String description;
-    private String method;
+    private String pluginChainCode;
+    private String env;
     private String status;
+    private String target;
     private String createBy;
     private Timestamp createTime;
     private String updateBy;
@@ -30,82 +27,42 @@ public class BisPubApiPO {
 
     @Id
     @Column(name = "id")
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "interface_id")
-    public Long getInterfaceId() {
-        return interfaceId;
+    @Column(name = "pub_app_code")
+    public String getPubAppCode() {
+        return pubAppCode;
     }
 
-    public void setInterfaceId(Long interfaceId) {
-        this.interfaceId = interfaceId;
-    }
-
-    @Basic
-    @Column(name = "env")
-    public String getEnv() {
-        return env;
-    }
-
-    public void setEnv(String env) {
-        this.env = env;
+    public void setPubAppCode(String pubAppCode) {
+        this.pubAppCode = pubAppCode;
     }
 
     @Basic
-    @Column(name = "server_code")
-    public String getServerCode() {
-        return serverCode;
+    @Column(name = "api_code")
+    public String getApiCode() {
+        return apiCode;
     }
 
-    public void setServerCode(String serverCode) {
-        this.serverCode = serverCode;
-    }
-
-    @Basic
-    @Column(name = "target")
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
     }
 
     @Basic
-    @Column(name = "mq_inbound")
-    public String getMqInbound() {
-        return mqInbound;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setMqInbound(String mqInbound) {
-        this.mqInbound = mqInbound;
-    }
-
-    @Basic
-    @Column(name = "mq_outbound")
-    public String getMqOutbound() {
-        return mqOutbound;
-    }
-
-    public void setMqOutbound(String mqOutbound) {
-        this.mqOutbound = mqOutbound;
-    }
-
-    @Basic
-    @Column(name = "protocol")
-    public String getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -119,13 +76,23 @@ public class BisPubApiPO {
     }
 
     @Basic
-    @Column(name = "method")
-    public String getMethod() {
-        return method;
+    @Column(name = "plugin_chain_code")
+    public String getPluginChainCode() {
+        return pluginChainCode;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setPluginChainCode(String pluginChainCode) {
+        this.pluginChainCode = pluginChainCode;
+    }
+
+    @Basic
+    @Column(name = "env")
+    public String getEnv() {
+        return env;
+    }
+
+    public void setEnv(String env) {
+        this.env = env;
     }
 
     @Basic
@@ -136,6 +103,16 @@ public class BisPubApiPO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Basic
+    @Column(name = "target")
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 
     @Basic
@@ -232,31 +209,61 @@ public class BisPubApiPO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         BisPubApiPO that = (BisPubApiPO) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(interfaceId, that.interfaceId) &&
-                Objects.equals(env, that.env) &&
-                Objects.equals(serverCode, that.serverCode) &&
-                Objects.equals(target, that.target) &&
-                Objects.equals(mqInbound, that.mqInbound) &&
-                Objects.equals(mqOutbound, that.mqOutbound) &&
-                Objects.equals(protocol, that.protocol) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(method, that.method) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(createBy, that.createBy) &&
-                Objects.equals(createTime, that.createTime) &&
-                Objects.equals(updateBy, that.updateBy) &&
-                Objects.equals(updateTime, that.updateTime) &&
-                Objects.equals(deleteFlag, that.deleteFlag) &&
-                Objects.equals(version, that.version) &&
-                Objects.equals(reserve1, that.reserve1) &&
-                Objects.equals(reserve2, that.reserve2) &&
-                Objects.equals(reserve3, that.reserve3);
+
+        if (id != that.id) return false;
+        if (pubAppCode != null ? !pubAppCode.equals(that.pubAppCode) : that.pubAppCode != null) return false;
+        if (apiCode != null ? !apiCode.equals(that.apiCode) : that.apiCode != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (pluginChainCode != null ? !pluginChainCode.equals(that.pluginChainCode) : that.pluginChainCode != null)
+            return false;
+        if (env != null ? !env.equals(that.env) : that.env != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (target != null ? !target.equals(that.target) : that.target != null) return false;
+        if (createBy != null ? !createBy.equals(that.createBy) : that.createBy != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
+        if (updateBy != null ? !updateBy.equals(that.updateBy) : that.updateBy != null) return false;
+        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
+        if (deleteFlag != null ? !deleteFlag.equals(that.deleteFlag) : that.deleteFlag != null) return false;
+        if (version != null ? !version.equals(that.version) : that.version != null) return false;
+        if (reserve1 != null ? !reserve1.equals(that.reserve1) : that.reserve1 != null) return false;
+        if (reserve2 != null ? !reserve2.equals(that.reserve2) : that.reserve2 != null) return false;
+        if (reserve3 != null ? !reserve3.equals(that.reserve3) : that.reserve3 != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, interfaceId, env, serverCode, target, mqInbound, mqOutbound, protocol, description, method, status, createBy, createTime, updateBy, updateTime, deleteFlag, version, reserve1, reserve2, reserve3);
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (pubAppCode != null ? pubAppCode.hashCode() : 0);
+        result = 31 * result + (apiCode != null ? apiCode.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (pluginChainCode != null ? pluginChainCode.hashCode() : 0);
+        result = 31 * result + (env != null ? env.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (target != null ? target.hashCode() : 0);
+        result = 31 * result + (createBy != null ? createBy.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+        result = 31 * result + (updateBy != null ? updateBy.hashCode() : 0);
+        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+        result = 31 * result + (deleteFlag != null ? deleteFlag.hashCode() : 0);
+        result = 31 * result + (version != null ? version.hashCode() : 0);
+        result = 31 * result + (reserve1 != null ? reserve1.hashCode() : 0);
+        result = 31 * result + (reserve2 != null ? reserve2.hashCode() : 0);
+        result = 31 * result + (reserve3 != null ? reserve3.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "BisPubApiPO [id=" + id + ", pubAppCode=" + pubAppCode + ", apiCode=" + apiCode + ", name=" + name
+                + ", description=" + description + ", pluginChainCode=" + pluginChainCode + ", env=" + env + ", status="
+                + status + ", target=" + target + ", createBy=" + createBy + ", createTime=" + createTime
+                + ", updateBy=" + updateBy + ", updateTime=" + updateTime + ", deleteFlag=" + deleteFlag + ", version="
+                + version + ", reserve1=" + reserve1 + ", reserve2=" + reserve2 + ", reserve3=" + reserve3 + "]";
     }
 }

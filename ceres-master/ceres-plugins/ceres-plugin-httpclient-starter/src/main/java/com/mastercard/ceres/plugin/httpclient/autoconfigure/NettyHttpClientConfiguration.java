@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.mastercard.ceres.filter.CeresFilter;
-import com.mastercard.ceres.plugin.httpclient.netty.NettyClientOutBoundFilter;
-import com.mastercard.ceres.plugin.httpclient.netty.NettyHttpClientEndpointFilter;
+import com.mastercard.ceres.plugin.CeresPlugin;
+import com.mastercard.ceres.plugin.httpclient.netty.NettyClientOutBoundPlugin;
+import com.mastercard.ceres.plugin.httpclient.netty.NettyHttpClientEndpointPlugin;
 
 import reactor.netty.http.client.HttpClient;
 
@@ -23,13 +23,13 @@ import reactor.netty.http.client.HttpClient;
 public class NettyHttpClientConfiguration {
 
     @Bean
-    public CeresFilter nettyHttpClientEndpointFilter(final ObjectProvider<HttpClient> httpClient) {
-        return new NettyHttpClientEndpointFilter(httpClient.getIfAvailable());
+    public CeresPlugin nettyHttpClientEndpointPlugin(final ObjectProvider<HttpClient> httpClient) {
+        return new NettyHttpClientEndpointPlugin(httpClient.getIfAvailable());
     }
 
     @Bean
-    public CeresFilter nettyClientOutBoundFilter() {
-        return new NettyClientOutBoundFilter();
+    public CeresPlugin nettyClientOutBoundPlugin() {
+        return new NettyClientOutBoundPlugin();
     }
 
 }

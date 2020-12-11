@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.mastercard.ceres.filter.CeresFilter;
-import com.mastercard.ceres.plugin.httpclient.webClient.WebClientEndpointFilter;
-import com.mastercard.ceres.plugin.httpclient.webClient.WebClientOutBoundFilter;
+import com.mastercard.ceres.plugin.CeresPlugin;
+import com.mastercard.ceres.plugin.httpclient.webClient.WebClientEndpointPlugin;
+import com.mastercard.ceres.plugin.httpclient.webClient.WebClientOutBoundPlugin;
 
 import reactor.netty.http.client.HttpClient;
 
@@ -28,15 +28,15 @@ import reactor.netty.http.client.HttpClient;
 public class WebClientConfiguration {
 
     @Bean
-    public CeresFilter webClientEndpointFilter(final ObjectProvider<HttpClient> httpClient) {
+    public CeresPlugin webClientEndpointPlugin(final ObjectProvider<HttpClient> httpClient) {
         WebClient webClient = WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(Objects.requireNonNull(httpClient.getIfAvailable())))
                 .build();
-        return new WebClientEndpointFilter(webClient);
+        return new WebClientEndpointPlugin(webClient);
     }
 
     @Bean
-    public CeresFilter webClientOutBoundFilter() {
-        return new WebClientOutBoundFilter();
+    public CeresPlugin webClientOutBoundPlugin() {
+        return new WebClientOutBoundPlugin();
     }
 }

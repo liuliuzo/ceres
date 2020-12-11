@@ -2,20 +2,18 @@ package com.mastercard.ceres.core.db.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
-@Table(name = "bis_plugin", schema = "shared_bis", catalog = "")
+@Table(name = "bis_plugin", schema = "shared_bis_update", catalog = "")
 public class BisPluginPO {
     private long id;
-    private Long pluginId;
-    private Long pluginChainId;
+    private String pluginCode;
     private String name;
     private String description;
     private String type;
     private Integer order;
     private Byte enabled;
-    private Byte continued;
+    private Byte breakChain;
     private String createBy;
     private Timestamp createTime;
     private String updateBy;
@@ -37,23 +35,13 @@ public class BisPluginPO {
     }
 
     @Basic
-    @Column(name = "plugin_id")
-    public Long getPluginId() {
-        return pluginId;
+    @Column(name = "plugin_code")
+    public String getPluginCode() {
+        return pluginCode;
     }
 
-    public void setPluginId(Long pluginId) {
-        this.pluginId = pluginId;
-    }
-
-    @Basic
-    @Column(name = "plugin_chain_id")
-    public Long getPluginChainId() {
-        return pluginChainId;
-    }
-
-    public void setPluginChainId(Long pluginChainId) {
-        this.pluginChainId = pluginChainId;
+    public void setPluginCode(String pluginCode) {
+        this.pluginCode = pluginCode;
     }
 
     @Basic
@@ -107,13 +95,13 @@ public class BisPluginPO {
     }
 
     @Basic
-    @Column(name = "continued")
-    public Byte getContinued() {
-        return continued;
+    @Column(name = "break_chain")
+    public Byte getBreakChain() {
+        return breakChain;
     }
 
-    public void setContinued(Byte continued) {
-        this.continued = continued;
+    public void setBreakChain(Byte breakChain) {
+        this.breakChain = breakChain;
     }
 
     @Basic
@@ -210,29 +198,58 @@ public class BisPluginPO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         BisPluginPO that = (BisPluginPO) o;
-        return id == that.id &&
-                Objects.equals(pluginId, that.pluginId) &&
-                Objects.equals(pluginChainId, that.pluginChainId) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(type, that.type) &&
-                Objects.equals(order, that.order) &&
-                Objects.equals(enabled, that.enabled) &&
-                Objects.equals(continued, that.continued) &&
-                Objects.equals(createBy, that.createBy) &&
-                Objects.equals(createTime, that.createTime) &&
-                Objects.equals(updateBy, that.updateBy) &&
-                Objects.equals(updateTime, that.updateTime) &&
-                Objects.equals(deleteFlag, that.deleteFlag) &&
-                Objects.equals(version, that.version) &&
-                Objects.equals(reserve1, that.reserve1) &&
-                Objects.equals(reserve2, that.reserve2) &&
-                Objects.equals(reserve3, that.reserve3);
+
+        if (id != that.id) return false;
+        if (pluginCode != null ? !pluginCode.equals(that.pluginCode) : that.pluginCode != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (order != null ? !order.equals(that.order) : that.order != null) return false;
+        if (enabled != null ? !enabled.equals(that.enabled) : that.enabled != null) return false;
+        if (breakChain != null ? !breakChain.equals(that.breakChain) : that.breakChain != null) return false;
+        if (createBy != null ? !createBy.equals(that.createBy) : that.createBy != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
+        if (updateBy != null ? !updateBy.equals(that.updateBy) : that.updateBy != null) return false;
+        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
+        if (deleteFlag != null ? !deleteFlag.equals(that.deleteFlag) : that.deleteFlag != null) return false;
+        if (version != null ? !version.equals(that.version) : that.version != null) return false;
+        if (reserve1 != null ? !reserve1.equals(that.reserve1) : that.reserve1 != null) return false;
+        if (reserve2 != null ? !reserve2.equals(that.reserve2) : that.reserve2 != null) return false;
+        if (reserve3 != null ? !reserve3.equals(that.reserve3) : that.reserve3 != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, pluginId, pluginChainId, name, description, type, order, enabled, continued, createBy, createTime, updateBy, updateTime, deleteFlag, version, reserve1, reserve2, reserve3);
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (pluginCode != null ? pluginCode.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (order != null ? order.hashCode() : 0);
+        result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
+        result = 31 * result + (breakChain != null ? breakChain.hashCode() : 0);
+        result = 31 * result + (createBy != null ? createBy.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+        result = 31 * result + (updateBy != null ? updateBy.hashCode() : 0);
+        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+        result = 31 * result + (deleteFlag != null ? deleteFlag.hashCode() : 0);
+        result = 31 * result + (version != null ? version.hashCode() : 0);
+        result = 31 * result + (reserve1 != null ? reserve1.hashCode() : 0);
+        result = 31 * result + (reserve2 != null ? reserve2.hashCode() : 0);
+        result = 31 * result + (reserve3 != null ? reserve3.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "BisPluginPO [id=" + id + ", pluginCode=" + pluginCode + ", name=" + name + ", description="
+                + description + ", type=" + type + ", order=" + order + ", enabled=" + enabled + ", breakChain="
+                + breakChain + ", createBy=" + createBy + ", createTime=" + createTime + ", updateBy=" + updateBy
+                + ", updateTime=" + updateTime + ", deleteFlag=" + deleteFlag + ", version=" + version + ", reserve1="
+                + reserve1 + ", reserve2=" + reserve2 + ", reserve3=" + reserve3 + "]";
     }
 }

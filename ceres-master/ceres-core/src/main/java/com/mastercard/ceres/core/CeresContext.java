@@ -29,9 +29,9 @@ public class CeresContext {
     private Map<String, Object> routingRequestMap = Maps.newConcurrentMap();
 
     /**
-     * process result of filters
+     * process result of plugins
      */
-    private Map<String, Object> filtersMap = Maps.newConcurrentMap();
+    private Map<String, Object> pluginsMap = Maps.newConcurrentMap();
 
     public Object getCeresRequst() {
         return ceresRequst;
@@ -57,17 +57,17 @@ public class CeresContext {
         this.routingRequestMap = routingRequestMap;
     }
 
-    public Map<String, Object> getFiltersMap() {
-        return filtersMap;
+    public Map<String, Object> getPluginsMap() {
+        return pluginsMap;
     }
 
-    public void setFiltersMap(Map<String, Object> filtersMap) {
-        this.filtersMap = filtersMap;
+    public void setPluginsMap(Map<String, Object> pluginsMap) {
+        this.pluginsMap = pluginsMap;
     }
 
     @Override
     public String toString() {
         return "ceresContext [ceresRequst=" + ceresRequst + ", ceresResponse=" + ceresResponse + ", routingRequestMap="
-                + routingRequestMap + ", filtersMap=" + filtersMap + "]";
+                + routingRequestMap + ", pluginsMap=" + pluginsMap + "]";
     }
 }

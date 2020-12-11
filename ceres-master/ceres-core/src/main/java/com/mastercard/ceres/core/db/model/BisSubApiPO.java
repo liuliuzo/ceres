@@ -2,17 +2,13 @@ package com.mastercard.ceres.core.db.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
-@Table(name = "bis_sub_api", schema = "shared_bis", catalog = "")
+@Table(name = "bis_sub_api", schema = "shared_bis_update", catalog = "")
 public class BisSubApiPO {
-    private long subInterfaceId;
-    private Long consumerId;
-    private Long interfaceId;
-    private String protocol;
-    private String consumerInbound;
-    private String consumerOutbound;
+    private long id;
+    private String subAppCode;
+    private String apiCode;
     private String status;
     private String createBy;
     private Timestamp createTime;
@@ -25,63 +21,33 @@ public class BisSubApiPO {
     private String reserve3;
 
     @Id
-    @Column(name = "sub_interface_id")
-    public long getSubInterfaceId() {
-        return subInterfaceId;
+    @Column(name = "id")
+    public long getId() {
+        return id;
     }
 
-    public void setSubInterfaceId(long subInterfaceId) {
-        this.subInterfaceId = subInterfaceId;
-    }
-
-    @Basic
-    @Column(name = "consumer_id")
-    public Long getConsumerId() {
-        return consumerId;
-    }
-
-    public void setConsumerId(Long consumerId) {
-        this.consumerId = consumerId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "interface_id")
-    public Long getInterfaceId() {
-        return interfaceId;
+    @Column(name = "sub_app_code")
+    public String getSubAppCode() {
+        return subAppCode;
     }
 
-    public void setInterfaceId(Long interfaceId) {
-        this.interfaceId = interfaceId;
-    }
-
-    @Basic
-    @Column(name = "protocol")
-    public String getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
+    public void setSubAppCode(String subAppCode) {
+        this.subAppCode = subAppCode;
     }
 
     @Basic
-    @Column(name = "consumer_inbound")
-    public String getConsumerInbound() {
-        return consumerInbound;
+    @Column(name = "api_code")
+    public String getApiCode() {
+        return apiCode;
     }
 
-    public void setConsumerInbound(String consumerInbound) {
-        this.consumerInbound = consumerInbound;
-    }
-
-    @Basic
-    @Column(name = "consumer_outbound")
-    public String getConsumerOutbound() {
-        return consumerOutbound;
-    }
-
-    public void setConsumerOutbound(String consumerOutbound) {
-        this.consumerOutbound = consumerOutbound;
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
     }
 
     @Basic
@@ -188,27 +154,49 @@ public class BisSubApiPO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         BisSubApiPO that = (BisSubApiPO) o;
-        return subInterfaceId == that.subInterfaceId &&
-                Objects.equals(consumerId, that.consumerId) &&
-                Objects.equals(interfaceId, that.interfaceId) &&
-                Objects.equals(protocol, that.protocol) &&
-                Objects.equals(consumerInbound, that.consumerInbound) &&
-                Objects.equals(consumerOutbound, that.consumerOutbound) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(createBy, that.createBy) &&
-                Objects.equals(createTime, that.createTime) &&
-                Objects.equals(updateBy, that.updateBy) &&
-                Objects.equals(updateTime, that.updateTime) &&
-                Objects.equals(deleteFlag, that.deleteFlag) &&
-                Objects.equals(version, that.version) &&
-                Objects.equals(reserve1, that.reserve1) &&
-                Objects.equals(reserve2, that.reserve2) &&
-                Objects.equals(reserve3, that.reserve3);
+
+        if (id != that.id) return false;
+        if (subAppCode != null ? !subAppCode.equals(that.subAppCode) : that.subAppCode != null) return false;
+        if (apiCode != null ? !apiCode.equals(that.apiCode) : that.apiCode != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (createBy != null ? !createBy.equals(that.createBy) : that.createBy != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
+        if (updateBy != null ? !updateBy.equals(that.updateBy) : that.updateBy != null) return false;
+        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
+        if (deleteFlag != null ? !deleteFlag.equals(that.deleteFlag) : that.deleteFlag != null) return false;
+        if (version != null ? !version.equals(that.version) : that.version != null) return false;
+        if (reserve1 != null ? !reserve1.equals(that.reserve1) : that.reserve1 != null) return false;
+        if (reserve2 != null ? !reserve2.equals(that.reserve2) : that.reserve2 != null) return false;
+        if (reserve3 != null ? !reserve3.equals(that.reserve3) : that.reserve3 != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subInterfaceId, consumerId, interfaceId, protocol, consumerInbound, consumerOutbound, status, createBy, createTime, updateBy, updateTime, deleteFlag, version, reserve1, reserve2, reserve3);
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (subAppCode != null ? subAppCode.hashCode() : 0);
+        result = 31 * result + (apiCode != null ? apiCode.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (createBy != null ? createBy.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+        result = 31 * result + (updateBy != null ? updateBy.hashCode() : 0);
+        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+        result = 31 * result + (deleteFlag != null ? deleteFlag.hashCode() : 0);
+        result = 31 * result + (version != null ? version.hashCode() : 0);
+        result = 31 * result + (reserve1 != null ? reserve1.hashCode() : 0);
+        result = 31 * result + (reserve2 != null ? reserve2.hashCode() : 0);
+        result = 31 * result + (reserve3 != null ? reserve3.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "BisSubApiPO [id=" + id + ", subAppCode=" + subAppCode + ", apiCode=" + apiCode + ", status=" + status
+                + ", createBy=" + createBy + ", createTime=" + createTime + ", updateBy=" + updateBy + ", updateTime="
+                + updateTime + ", deleteFlag=" + deleteFlag + ", version=" + version + ", reserve1=" + reserve1
+                + ", reserve2=" + reserve2 + ", reserve3=" + reserve3 + "]";
     }
 }

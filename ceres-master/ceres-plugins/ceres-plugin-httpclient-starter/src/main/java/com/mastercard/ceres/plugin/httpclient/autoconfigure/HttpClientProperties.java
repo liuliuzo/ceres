@@ -151,8 +151,7 @@ public class HttpClientProperties {
          */
         public X509Certificate[] getTrustedX509CertificatesForTrustManager() {
             try {
-                CertificateFactory certificateFactory = CertificateFactory
-                        .getInstance("X.509");
+                CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
                 List<Certificate> allCerts = new ArrayList<>();
                 for (String trustedCert : ssl.getTrustedX509Certificates()) {
                     try {

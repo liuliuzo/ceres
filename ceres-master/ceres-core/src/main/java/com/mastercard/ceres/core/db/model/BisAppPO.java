@@ -2,13 +2,12 @@ package com.mastercard.ceres.core.db.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
-@Table(name = "bis_app", schema = "shared_bis", catalog = "")
+@Table(name = "bis_app", schema = "shared_bis_update", catalog = "")
 public class BisAppPO {
     private long id;
-    private String appId;
+    private String appCode;
     private String name;
     private String description;
     private String createBy;
@@ -32,13 +31,13 @@ public class BisAppPO {
     }
 
     @Basic
-    @Column(name = "app_id")
-    public String getAppId() {
-        return appId;
+    @Column(name = "app_code")
+    public String getAppCode() {
+        return appCode;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
+    public void setAppCode(String appCode) {
+        this.appCode = appCode;
     }
 
     @Basic
@@ -155,24 +154,50 @@ public class BisAppPO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         BisAppPO bisAppPO = (BisAppPO) o;
-        return id == bisAppPO.id &&
-                Objects.equals(appId, bisAppPO.appId) &&
-                Objects.equals(name, bisAppPO.name) &&
-                Objects.equals(description, bisAppPO.description) &&
-                Objects.equals(createBy, bisAppPO.createBy) &&
-                Objects.equals(createTime, bisAppPO.createTime) &&
-                Objects.equals(updateBy, bisAppPO.updateBy) &&
-                Objects.equals(updateTime, bisAppPO.updateTime) &&
-                Objects.equals(deleteFlag, bisAppPO.deleteFlag) &&
-                Objects.equals(version, bisAppPO.version) &&
-                Objects.equals(reserve1, bisAppPO.reserve1) &&
-                Objects.equals(reserve2, bisAppPO.reserve2) &&
-                Objects.equals(reserve3, bisAppPO.reserve3);
+
+        if (id != bisAppPO.id) return false;
+        if (appCode != null ? !appCode.equals(bisAppPO.appCode) : bisAppPO.appCode != null) return false;
+        if (name != null ? !name.equals(bisAppPO.name) : bisAppPO.name != null) return false;
+        if (description != null ? !description.equals(bisAppPO.description) : bisAppPO.description != null)
+            return false;
+        if (createBy != null ? !createBy.equals(bisAppPO.createBy) : bisAppPO.createBy != null) return false;
+        if (createTime != null ? !createTime.equals(bisAppPO.createTime) : bisAppPO.createTime != null) return false;
+        if (updateBy != null ? !updateBy.equals(bisAppPO.updateBy) : bisAppPO.updateBy != null) return false;
+        if (updateTime != null ? !updateTime.equals(bisAppPO.updateTime) : bisAppPO.updateTime != null) return false;
+        if (deleteFlag != null ? !deleteFlag.equals(bisAppPO.deleteFlag) : bisAppPO.deleteFlag != null) return false;
+        if (version != null ? !version.equals(bisAppPO.version) : bisAppPO.version != null) return false;
+        if (reserve1 != null ? !reserve1.equals(bisAppPO.reserve1) : bisAppPO.reserve1 != null) return false;
+        if (reserve2 != null ? !reserve2.equals(bisAppPO.reserve2) : bisAppPO.reserve2 != null) return false;
+        if (reserve3 != null ? !reserve3.equals(bisAppPO.reserve3) : bisAppPO.reserve3 != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, appId, name, description, createBy, createTime, updateBy, updateTime, deleteFlag, version, reserve1, reserve2, reserve3);
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (appCode != null ? appCode.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (createBy != null ? createBy.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+        result = 31 * result + (updateBy != null ? updateBy.hashCode() : 0);
+        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+        result = 31 * result + (deleteFlag != null ? deleteFlag.hashCode() : 0);
+        result = 31 * result + (version != null ? version.hashCode() : 0);
+        result = 31 * result + (reserve1 != null ? reserve1.hashCode() : 0);
+        result = 31 * result + (reserve2 != null ? reserve2.hashCode() : 0);
+        result = 31 * result + (reserve3 != null ? reserve3.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "BisAppPO [id=" + id + ", appCode=" + appCode + ", name=" + name + ", description=" + description
+                + ", createBy=" + createBy + ", createTime=" + createTime + ", updateBy=" + updateBy + ", updateTime="
+                + updateTime + ", deleteFlag=" + deleteFlag + ", version=" + version + ", reserve1=" + reserve1
+                + ", reserve2=" + reserve2 + ", reserve3=" + reserve3 + "]";
     }
 }

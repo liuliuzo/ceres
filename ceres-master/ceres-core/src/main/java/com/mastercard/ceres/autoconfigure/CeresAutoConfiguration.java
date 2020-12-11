@@ -6,17 +6,19 @@ import java.util.List;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionValidationException;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.util.CollectionUtils;
 
-import com.mastercard.ceres.core.CeresHandler;
+import com.mastercard.ceres.core.CeresPluginWebHandler;
 import com.mastercard.ceres.core.db.config.JPAConfiguration;
-import com.mastercard.ceres.filter.CeresFilter;
-import com.mastercard.ceres.filter.loader.StaticFilterLoader;
-import com.mastercard.ceres.router.CeresRouterConfiguration;
-import com.mastercard.ceres.spring.ApplicationContextHelper;
+import com.mastercard.ceres.core.start.ApplicationStartListener;
+import com.mastercard.ceres.plugin.CeresPlugin;
+import com.mastercard.ceres.plugin.loader.CeresPluginLoader;
+import com.mastercard.ceres.plugin.loader.StaticPluginLoader;
+import com.mastercard.ceres.spring.CeresApplicationContextAware;
 
 /**
  * @className CeresAutoConfiguration
@@ -27,25 +29,30 @@ import com.mastercard.ceres.spring.ApplicationContextHelper;
  **/
 @Configuration
 @EnableConfigurationProperties(CeresProperties.class)
-@Import({CeresRouterConfiguration.class, JPAConfiguration.class })
+@Import({JPAConfiguration.class })
 public class CeresAutoConfiguration {
 
-	@Bean
-	public StaticFilterLoader staticFilterLoader(final ObjectProvider<List<CeresFilter>> filters) {
-		List<CeresFilter> filtersList = filters.getIfAvailable(Collections::emptyList);
-		if (CollectionUtils.isEmpty(filtersList)) {
-			throw new BeanDefinitionValidationException("filters can not null !");
-		}
-		return new StaticFilterLoader(filtersList);
-	}
+    @Bean
+    public CeresPluginLoader ceresPluginLoader(final ObjectProvider<List<CeresPlugin>> plugins,CeresProperties ceresProperties) {
+        List<CeresPlugin> pluginsList = plugins.getIfAvailable(Collections::emptyList);
+        if (CollectionUtils.isEmpty(pluginsList)) {
+            throw new BeanDefinitionValidationException("plugins can not null !");
+        }
+        return new StaticPluginLoader(pluginsList);
+    }
 
-	@Bean
-	public CeresHandler ceresHandler(StaticFilterLoader staticFilterLoader) {
-		return new CeresHandler(staticFilterLoader);
-	}
+    @Bean("webHandler")
+    public CeresPluginWebHandler ceresPluginWebHandler(CeresPluginLoader ceresPluginLoader,CeresProperties ceresProperties) {
+        return new CeresPluginWebHandler(ceresPluginLoader,ceresProperties);
+    }
 
-	@Bean
-	public ApplicationContextHelper applicationContextHelper() {
-		return new ApplicationContextHelper();
-	}
+    @Bean
+    public ApplicationStartListener applicationStartListener() {
+        return new ApplicationStartListener();
+    }
+
+    @Bean
+    public ApplicationContextAware applicationContextAware() {
+        return new CeresApplicationContextAware();
+    }
 }
