@@ -36,7 +36,7 @@ public class NettyClientOutBoundPlugin extends OutBoundPlugin {
     }
 
     @Override
-    public Mono<Void> doPlugin(CeresContext context) {
+    public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         log.info("doPlugin {} !",this);
         return Mono.empty();
     }

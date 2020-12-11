@@ -61,7 +61,7 @@ public class NettyHttpClientEndpointPlugin extends EndpointPlugin {
     }
 
     @Override
-    public Mono<Void> doPlugin(CeresContext ceresContext) {
+    public Mono<Void> doPlugin(CeresContext ceresContext,CeresPluginChain chain) {
         log.info("doPlugin {} !",this);
         ServerRequest request = (ServerRequest) ceresContext.getCeresRequst();
         String context = request.exchange().getAttribute(Constants.CONTEXT);

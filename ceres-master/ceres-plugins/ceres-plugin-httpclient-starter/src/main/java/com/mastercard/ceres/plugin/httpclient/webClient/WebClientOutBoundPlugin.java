@@ -45,7 +45,7 @@ public class WebClientOutBoundPlugin extends OutBoundPlugin {
     }
 
     @Override
-    public Mono<Void> doPlugin(CeresContext context) {
+    public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         ServerWebExchange exchange =(ServerWebExchange) context.getCeresRequst();
         log.info("doPlugin {}!", this);
         return Mono.empty();

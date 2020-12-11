@@ -7,6 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.mastercard.ceres.core.CeresContext;
 import com.mastercard.ceres.plugin.base.EndpointPlugin;
+import com.mastercard.ceres.plugin.chain.CeresPluginChain;
 
 import reactor.core.publisher.Mono;
 
@@ -43,7 +44,7 @@ public class WebClientEndpointPlugin extends EndpointPlugin  {
     }
 
     @Override
-    public Mono<Void> doPlugin(CeresContext context) {
+    public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         log.info("doPlugin {}!", this);
         String baseUrl = "http://127.0.0.1:8080";
         WebClient webClient = WebClient.create(baseUrl);

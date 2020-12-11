@@ -1,6 +1,7 @@
 package com.mastercard.ceres.plugin;
 
 import com.mastercard.ceres.core.CeresContext;
+import com.mastercard.ceres.plugin.chain.CeresPluginChain;
 
 import reactor.core.publisher.Mono;
 
@@ -37,7 +38,7 @@ public interface CeresPlugin {
      */
     boolean skipPlugin();
 
-    Mono<Void> doPlugin(CeresContext context);
+    Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain);
 
     /**
      * Stop Plugin Processing

@@ -6,10 +6,11 @@ import org.springframework.stereotype.Component;
 
 import com.mastercard.ceres.core.CeresContext;
 import com.mastercard.ceres.plugin.base.OutBoundPlugin;
+import com.mastercard.ceres.plugin.chain.CeresPluginChain;
 
 import reactor.core.publisher.Mono;
 
-@Component
+//@Component
 public class CeresDemoPlugin3 extends OutBoundPlugin {
 
     private static final Logger log = LoggerFactory.getLogger(CeresDemoPlugin3.class);
@@ -35,7 +36,7 @@ public class CeresDemoPlugin3 extends OutBoundPlugin {
     }
 
     @Override
-    public Mono<Void> doPlugin(CeresContext context) {
+    public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         log.info("doPlugin !");
         return Mono.empty();
     }

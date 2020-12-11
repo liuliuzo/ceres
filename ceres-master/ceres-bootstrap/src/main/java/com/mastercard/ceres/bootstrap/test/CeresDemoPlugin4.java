@@ -11,10 +11,11 @@ import org.springframework.web.server.ServerWebExchange;
 import com.mastercard.ceres.bootstrap.utils.CeresUtils;
 import com.mastercard.ceres.core.CeresContext;
 import com.mastercard.ceres.plugin.base.OutBoundPlugin;
+import com.mastercard.ceres.plugin.chain.CeresPluginChain;
 
 import reactor.core.publisher.Mono;
 
-@Component
+//@Component
 public class CeresDemoPlugin4 extends OutBoundPlugin {
 
     private static final Logger log = LoggerFactory.getLogger(CeresDemoPlugin4.class);
@@ -40,7 +41,7 @@ public class CeresDemoPlugin4 extends OutBoundPlugin {
     }
 
     @Override
-    public Mono<Void> doPlugin(CeresContext context) {
+    public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         log.info("doPlugin !");
         ServerWebExchange exchange =(ServerWebExchange) context.getCeresRequst();
         ServerHttpResponse response=exchange.getResponse();
