@@ -13,10 +13,16 @@ import com.mastercard.ceres.core.CeresContext;
 import com.mastercard.ceres.plugin.base.EndpointPlugin;
 import com.mastercard.ceres.plugin.chain.CeresPluginChain;
 import com.mastercard.ceres.utils.JsonUtils;
-import com.mastercard.ceres.utils.WebFluxResultUtils;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * @className CeresDemoPlugin2
+ * @description
+ * @author liuliu
+ * @version 1.0
+ * @email liuliu.zhao@mastercard.com
+ */
 @Component
 public class CeresDemoPlugin2 extends EndpointPlugin {
 
@@ -40,10 +46,8 @@ public class CeresDemoPlugin2 extends EndpointPlugin {
     @Override
     public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         log.info("doPlugin !");
-        ServerWebExchange exchange =(ServerWebExchange) context.getCeresRequst();
-        exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-        exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
-		exchange.getResponse().writeWith(Mono.just(exchange.getResponse().bufferFactory().wrap(Objects.requireNonNull(JsonUtils.toJson("{}")).getBytes())));
-		return chain.execute(context);
+
+
+        return chain.execute(context);
     }
 }

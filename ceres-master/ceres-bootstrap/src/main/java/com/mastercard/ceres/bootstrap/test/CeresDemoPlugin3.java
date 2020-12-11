@@ -12,6 +12,13 @@ import com.mastercard.ceres.utils.WebFluxResultUtils;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * @className CeresDemoPlugin2
+ * @description
+ * @author liuliu
+ * @version 1.0
+ * @email liuliu.zhao@mastercard.com
+ */
 @Component
 public class CeresDemoPlugin3 extends OutBoundPlugin {
 
@@ -33,16 +40,16 @@ public class CeresDemoPlugin3 extends OutBoundPlugin {
     }
 
     @Override
-    public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
+    public Mono<Void> doPlugin(CeresContext context, CeresPluginChain chain) {
         log.info("doPlugin !");
-        ServerWebExchange exchange =(ServerWebExchange) context.getCeresRequst();
-		//exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
-        
+        ServerWebExchange exchange = (ServerWebExchange) context.getCeresRequst();
+        // exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
+
 //        if(!this.skipPlugin()) {
 //			return WebFluxResultUtils.result(exchange, "{}");
 //        } 
-        
-		return exchange.getResponse().setComplete();
+
+        return exchange.getResponse().setComplete();
     }
 
 }
