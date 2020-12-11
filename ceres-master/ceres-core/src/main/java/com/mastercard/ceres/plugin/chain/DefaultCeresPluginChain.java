@@ -40,7 +40,7 @@ public class DefaultCeresPluginChain implements CeresPluginChain {
         this.errorPlugins = ceresPluginLoader.getPluginsByType(PluginType.ERROR);
         this.plugins.addAll(inboundPlugins);
         //this.plugins.addAll(endpointPlugins);
-        //this.plugins.addAll(outboundPlugins);
+        this.plugins.addAll(outboundPlugins);
         this.index = 0;
     }
     

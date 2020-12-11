@@ -40,8 +40,6 @@ public class CeresDemoPlugin1 extends InBoundPlugin {
     @Override
     public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         log.info("doPlugin !");
-        ServerWebExchange exchange =(ServerWebExchange) context.getCeresRequst();
-		exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
-		return exchange.getResponse().setComplete();
+        return chain.execute(context);
     }
 }
