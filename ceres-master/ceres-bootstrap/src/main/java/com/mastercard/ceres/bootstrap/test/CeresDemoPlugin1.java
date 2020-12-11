@@ -2,9 +2,7 @@ package com.mastercard.ceres.bootstrap.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ServerWebExchange;
 
 import com.mastercard.ceres.core.CeresContext;
 import com.mastercard.ceres.plugin.base.InBoundPlugin;
