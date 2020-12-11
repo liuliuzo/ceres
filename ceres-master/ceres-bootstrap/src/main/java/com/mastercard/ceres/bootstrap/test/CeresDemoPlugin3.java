@@ -28,11 +28,6 @@ public class CeresDemoPlugin3 extends OutBoundPlugin {
     }
 
     @Override
-    public boolean stopPluginProcessing() {
-        return false;
-    }
-
-    @Override
     public boolean skipPlugin() {
         return true;
     }
@@ -41,7 +36,7 @@ public class CeresDemoPlugin3 extends OutBoundPlugin {
     public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         log.info("doPlugin !");
         ServerWebExchange exchange =(ServerWebExchange) context.getCeresRequst();
-		exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
+		//exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
 		return exchange.getResponse().setComplete();
     }
 

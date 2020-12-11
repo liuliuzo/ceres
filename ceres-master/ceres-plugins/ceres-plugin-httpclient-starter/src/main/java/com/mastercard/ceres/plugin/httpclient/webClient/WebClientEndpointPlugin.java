@@ -52,8 +52,4 @@ public class WebClientEndpointPlugin extends EndpointPlugin  {
         return Mono.empty();
     }
 
-    @Override
-    public boolean stopPluginProcessing() {
-        return false;
-    }
 }

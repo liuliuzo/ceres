@@ -41,8 +41,4 @@ public class NettyClientOutBoundPlugin extends OutBoundPlugin {
         return Mono.empty();
     }
 
-    @Override
-    public boolean stopPluginProcessing() {
-        return false;
-    }
 }

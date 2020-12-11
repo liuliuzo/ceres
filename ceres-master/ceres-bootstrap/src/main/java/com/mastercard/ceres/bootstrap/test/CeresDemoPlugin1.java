@@ -2,11 +2,14 @@ package com.mastercard.ceres.bootstrap.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
 
 import com.mastercard.ceres.core.CeresContext;
 import com.mastercard.ceres.plugin.base.InBoundPlugin;
 import com.mastercard.ceres.plugin.chain.CeresPluginChain;
+import com.mastercard.ceres.utils.WebFluxResultUtils;
 
 import reactor.core.publisher.Mono;
 
@@ -26,11 +29,6 @@ public class CeresDemoPlugin1 extends InBoundPlugin {
     }
 
     @Override
-    public boolean stopPluginProcessing() {
-        return true;
-    }
-
-    @Override
     public boolean skipPlugin() {
         return false;
     }
@@ -38,6 +36,11 @@ public class CeresDemoPlugin1 extends InBoundPlugin {
     @Override
     public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         log.info("doPlugin !");
+        ServerWebExchange exchange =(ServerWebExchange) context.getCeresRequst();
+        exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+        if(!this.skipPlugin()) {
+			return WebFluxResultUtils.result(exchange, "{}");
+        }
         return chain.execute(context);
     }
 }

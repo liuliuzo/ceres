@@ -37,12 +37,7 @@ public interface CeresPlugin {
      * @return
      */
     boolean skipPlugin();
+    
 
     Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain);
-
-    /**
-     * Stop Plugin Processing
-     * @return boolean
-     */
-    boolean stopPluginProcessing();
 }

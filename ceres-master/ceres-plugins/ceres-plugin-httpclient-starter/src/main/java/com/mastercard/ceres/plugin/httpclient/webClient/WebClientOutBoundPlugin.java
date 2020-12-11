@@ -50,9 +50,4 @@ public class WebClientOutBoundPlugin extends OutBoundPlugin {
         log.info("doPlugin {}!", this);
         return Mono.empty();
     }
-
-    @Override
-    public boolean stopPluginProcessing() {
-        return false;
-    }
 }

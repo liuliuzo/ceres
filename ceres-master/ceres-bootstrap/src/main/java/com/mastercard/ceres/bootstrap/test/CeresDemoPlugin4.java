@@ -31,11 +31,6 @@ public class CeresDemoPlugin4 extends OutBoundPlugin {
     }
 
     @Override
-    public boolean stopPluginProcessing() {
-        return false;
-    }
-
-    @Override
     public boolean skipPlugin() {
         return false;
     }

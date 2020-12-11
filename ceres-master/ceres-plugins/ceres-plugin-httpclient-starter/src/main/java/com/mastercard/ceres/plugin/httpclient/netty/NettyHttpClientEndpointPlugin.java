@@ -121,8 +121,4 @@ public class NettyHttpClientEndpointPlugin extends EndpointPlugin {
         return null;
     }
 
-    @Override
-    public boolean stopPluginProcessing() {
-        return false;
-    }
 }
