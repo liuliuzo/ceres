@@ -25,11 +25,11 @@
             <artifactId>ceres-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-<!--         <dependency>
+        <dependency>
             <groupId>com.mastercard.ceres</groupId>
             <artifactId>ceres-plugin-httpclient-starter</artifactId>
             <version>${project.version}</version>
-        </dependency> -->
+        </dependency>
     </dependencies>
 
 </project>

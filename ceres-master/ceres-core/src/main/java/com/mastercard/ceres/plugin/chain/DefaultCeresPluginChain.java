@@ -25,12 +25,12 @@ public class DefaultCeresPluginChain implements CeresPluginChain {
 
     private static final Logger log = LoggerFactory.getLogger(DefaultCeresPluginChain.class);
 
-	private List<CeresPlugin> plugins = Lists.newArrayList();
-	private Set<CeresPlugin> inboundPlugins;
-	private Set<CeresPlugin> endpointPlugins;
-	private Set<CeresPlugin> outboundPlugins;
-	private Set<CeresPlugin> errorPlugins;
-    
+    private List<CeresPlugin> plugins = Lists.newArrayList();
+    private Set<CeresPlugin> inboundPlugins;
+    private Set<CeresPlugin> endpointPlugins;
+    private Set<CeresPlugin> outboundPlugins;
+    private Set<CeresPlugin> errorPlugins;
+
     private int index;
 
     public DefaultCeresPluginChain(final CeresPluginLoader ceresPluginLoader) {
@@ -43,27 +43,26 @@ public class DefaultCeresPluginChain implements CeresPluginChain {
         this.plugins.addAll(outboundPlugins);
         this.index = 0;
     }
-    
-	private DefaultCeresPluginChain(DefaultCeresPluginChain parent, int index) {
-		this.plugins = parent.getPlugins();
-		this.index = index;
-	}
 
-	public List<CeresPlugin> getPlugins() {
-		return plugins;
-	}
-    
+    private DefaultCeresPluginChain(DefaultCeresPluginChain parent, int index) {
+        this.plugins = parent.getPlugins();
+        this.index = index;
+    }
+
+    public List<CeresPlugin> getPlugins() {
+        return plugins;
+    }
+
     @Override
     public Mono<Void> execute(CeresContext ceresContext) {
-    	return Mono.defer(() -> {
-			if (this.index < plugins.size()) {
-				CeresPlugin plugin = plugins.get(this.index);
-				DefaultCeresPluginChain chain = new DefaultCeresPluginChain(this, this.index + 1);
-				return plugin.doPlugin(ceresContext, chain);
-			}
-			else {
-				return Mono.empty(); // complete
-			}
-		});        
+        return Mono.defer(() -> {
+            if (this.index < plugins.size()) {
+                CeresPlugin plugin = plugins.get(this.index);
+                DefaultCeresPluginChain chain = new DefaultCeresPluginChain(this, this.index + 1);
+                return plugin.doPlugin(ceresContext, chain);
+            } else {
+                return Mono.empty(); // complete
+            }
+        });
     }
 }

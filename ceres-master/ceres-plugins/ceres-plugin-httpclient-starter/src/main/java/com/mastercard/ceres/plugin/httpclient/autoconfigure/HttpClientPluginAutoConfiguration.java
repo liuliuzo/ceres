@@ -26,8 +26,7 @@ import reactor.netty.tcp.ProxyProvider;
  **/
 @Configuration
 @EnableConfigurationProperties(HttpClientProperties.class)
-@Import({ NettyHttpClientConfiguration.class,
-          WebClientConfiguration.class
+@Import({ WebClientConfiguration.class
 })
 public class HttpClientPluginAutoConfiguration {
 

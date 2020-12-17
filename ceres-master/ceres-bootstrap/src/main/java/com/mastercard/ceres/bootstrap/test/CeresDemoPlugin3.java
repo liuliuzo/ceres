@@ -2,24 +2,22 @@ package com.mastercard.ceres.bootstrap.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.BodyExtractors;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.mastercard.ceres.core.CeresContext;
 import com.mastercard.ceres.plugin.base.OutBoundPlugin;
 import com.mastercard.ceres.plugin.chain.CeresPluginChain;
-import com.mastercard.ceres.utils.WebFluxResultUtils;
 
 import reactor.core.publisher.Mono;
 
-/**
- * @className CeresDemoPlugin2
- * @description
- * @author liuliu
- * @version 1.0
- * @email liuliu.zhao@mastercard.com
- */
-@Component
+import static com.mastercard.ceres.constant.Constants.CLIENT_RESPONSE_ATTR;
+
+//@Component
 public class CeresDemoPlugin3 extends OutBoundPlugin {
 
     private static final Logger log = LoggerFactory.getLogger(CeresDemoPlugin3.class);
@@ -36,20 +34,33 @@ public class CeresDemoPlugin3 extends OutBoundPlugin {
 
     @Override
     public boolean skipPlugin() {
-        return false;
+        return true;
     }
 
     @Override
-    public Mono<Void> doPlugin(CeresContext context, CeresPluginChain chain) {
+    public Mono<Void> doPlugin(CeresContext context,CeresPluginChain chain) {
         log.info("doPlugin !");
-        ServerWebExchange exchange = (ServerWebExchange) context.getCeresRequst();
-        // exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
+        ServerWebExchange exchange =(ServerWebExchange) context.getCeresRequst();
+        ServerHttpResponse response = exchange.getResponse();
+        ClientResponse clientResponse = exchange.getAttribute(CLIENT_RESPONSE_ATTR);
+        if (clientResponse == null) {
+            return Mono.empty();
+        }
 
-//        if(!this.skipPlugin()) {
-//			return WebFluxResultUtils.result(exchange, "{}");
-//        } 
 
-        return exchange.getResponse().setComplete();
+        return response.writeWith(clientResponse.body(BodyExtractors.toDataBuffers()))
+                // .log("webClient response")
+                .doOnCancel(() -> cleanup(exchange));
+
+		// exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
+		// return exchange.getResponse().setComplete();
+    }
+
+    private void cleanup(ServerWebExchange exchange) {
+        ClientResponse clientResponse = exchange.getAttribute(CLIENT_RESPONSE_ATTR);
+        if (clientResponse != null) {
+            clientResponse.bodyToMono(Void.class).subscribe();
+        }
     }
 
 }
