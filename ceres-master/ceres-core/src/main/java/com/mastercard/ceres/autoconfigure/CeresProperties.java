@@ -2,6 +2,11 @@ package com.mastercard.ceres.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * 
+ * @author liuliu
+ *
+ */
 @ConfigurationProperties(prefix = CeresProperties.PREFIX)
 public class CeresProperties {
 

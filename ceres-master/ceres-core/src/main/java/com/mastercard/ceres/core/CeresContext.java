@@ -1,8 +1,6 @@
 package com.mastercard.ceres.core;
 
-import java.util.Map;
-
-import com.google.common.collect.Maps;
+import org.springframework.web.server.ServerWebExchange;
 
 /**
  * @className CeresContext
@@ -16,28 +14,18 @@ public class CeresContext {
     /**
      * ceres requst object
      */
-    private Object ceresRequst;
+    private ServerWebExchange ceresRequst;
 
     /**
      * ceres response object
      */
     private Object ceresResponse;
 
-    /**
-     * business routing object
-     */
-    private Map<String, Object> routingRequestMap = Maps.newConcurrentMap();
-
-    /**
-     * process result of plugins
-     */
-    private Map<String, Object> pluginsMap = Maps.newConcurrentMap();
-
-    public Object getCeresRequst() {
+    public ServerWebExchange getCeresRequst() {
         return ceresRequst;
     }
 
-    public void setCeresRequst(Object ceresRequst) {
+    public void setCeresRequst(ServerWebExchange ceresRequst) {
         this.ceresRequst = ceresRequst;
     }
 
@@ -47,27 +35,5 @@ public class CeresContext {
 
     public void setCeresResponse(Object ceresResponse) {
         this.ceresResponse = ceresResponse;
-    }
-
-    public Map<String, Object> getRoutingRequestMap() {
-        return routingRequestMap;
-    }
-
-    public void setRoutingRequestMap(Map<String, Object> routingRequestMap) {
-        this.routingRequestMap = routingRequestMap;
-    }
-
-    public Map<String, Object> getPluginsMap() {
-        return pluginsMap;
-    }
-
-    public void setPluginsMap(Map<String, Object> pluginsMap) {
-        this.pluginsMap = pluginsMap;
-    }
-
-    @Override
-    public String toString() {
-        return "ceresContext [ceresRequst=" + ceresRequst + ", ceresResponse=" + ceresResponse + ", routingRequestMap="
-                + routingRequestMap + ", pluginsMap=" + pluginsMap + "]";
     }
 }

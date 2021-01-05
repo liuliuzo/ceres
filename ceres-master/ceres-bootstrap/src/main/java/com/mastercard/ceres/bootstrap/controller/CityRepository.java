@@ -6,6 +6,11 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 
+ * @author liuliu
+ *
+ */
 @Repository
 public class CityRepository {
 

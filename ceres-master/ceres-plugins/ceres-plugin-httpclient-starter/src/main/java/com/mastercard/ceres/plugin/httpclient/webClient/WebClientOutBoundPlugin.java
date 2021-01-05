@@ -48,7 +48,7 @@ public class WebClientOutBoundPlugin extends OutBoundPlugin {
     @Override
     public Mono<Void> doPlugin(CeresContext context, CeresPluginChain chain) {
         log.info("doPlugin !");
-        ServerWebExchange exchange = (ServerWebExchange) context.getCeresRequst();
+        ServerWebExchange exchange = context.getCeresRequst();
         ServerHttpResponse response = exchange.getResponse();
         ClientResponse clientResponse = exchange.getAttribute(CLIENT_RESPONSE_ATTR);
         if (Objects.isNull(clientResponse) || response.getStatusCode() == HttpStatus.BAD_GATEWAY

@@ -1,5 +1,10 @@
 package com.mastercard.ceres.bootstrap.utils;
 
+/**
+ * 
+ * @author liuliu
+ *
+ */
 public class CeresUtils {
     private static String qualify(String attr) {
         return CeresUtils.class.getName() + "." + attr;

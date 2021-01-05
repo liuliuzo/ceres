@@ -58,11 +58,11 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
     @Override
     public Mono<Void> doPlugin(CeresContext context, CeresPluginChain chain) {
         log.info("doPlugin {}!", this);
-        ServerWebExchange exchange = (ServerWebExchange) context.getCeresRequst();
+        ServerWebExchange exchange = context.getCeresRequst();
         long timeout = (long) Optional.ofNullable(exchange.getAttribute(Constants.HTTP_TIME_OUT)).orElse(3000L);
         HttpMethod method = HttpMethod.valueOf(exchange.getRequest().getMethodValue());
-        WebClient webClient = WebClientUtil.getWebClient("http://127.0.0.1:8080/", httpClient);
-        WebClient.RequestBodySpec requestBodySpec = webClient.method(method).uri("hello/mono");
+        WebClient webClient = WebClientUtil.getWebClient("https://www.jianshu.com/", httpClient);
+        WebClient.RequestBodySpec requestBodySpec = webClient.method(method).uri("u/fb39c14e77d9");
         return handleRequestBody(requestBodySpec, exchange, timeout, chain, context);
     }
 
@@ -75,7 +75,7 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
 
     private Mono<Void> handleRequestBody(WebClient.RequestBodySpec requestBodySpec, ServerWebExchange exchange,
             long timeout, CeresPluginChain chain, CeresContext context) {
-                Object body=exchange.getAttributes().get("BODY");
+                Object body = exchange.getAttributes().get("BODY");
                 log.info("body:{}", body);
                 return requestBodySpec.headers(httpHeaders -> {
                     httpHeaders.addAll(exchange.getRequest().getHeaders());

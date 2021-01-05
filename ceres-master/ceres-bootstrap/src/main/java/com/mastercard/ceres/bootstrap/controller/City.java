@@ -2,6 +2,11 @@ package com.mastercard.ceres.bootstrap.controller;
 
 import com.mastercard.ceres.utils.JsonUtils;
 
+/**
+ * 
+ * @author liuliu
+ *
+ */
 public class City {
 
     private Long id;

@@ -8,6 +8,11 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * @author liuliu
+ *
+ */
 //@Component
 public class RouterHandler {
     public Mono<ServerResponse> helloRouter(ServerRequest request) {
