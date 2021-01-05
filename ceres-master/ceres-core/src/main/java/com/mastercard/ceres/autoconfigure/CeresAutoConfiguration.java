@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.util.CollectionUtils;
 
 import com.mastercard.ceres.core.CeresPluginWebHandler;
+import com.mastercard.ceres.core.CeresWebFilter;
 import com.mastercard.ceres.core.db.config.JPAConfiguration;
 import com.mastercard.ceres.core.start.ApplicationStartListener;
 import com.mastercard.ceres.plugin.CeresPlugin;
@@ -41,7 +42,7 @@ public class CeresAutoConfiguration {
         return new StaticPluginLoader(pluginsList);
     }
 
-    @Bean("webHandler")
+    @Bean
     public CeresPluginWebHandler ceresPluginWebHandler(CeresPluginLoader ceresPluginLoader,CeresProperties ceresProperties) {
         return new CeresPluginWebHandler(ceresPluginLoader,ceresProperties);
     }
@@ -54,5 +55,12 @@ public class CeresAutoConfiguration {
     @Bean
     public ApplicationContextAware applicationContextAware() {
         return new CeresApplicationContextAware();
+    }
+
+    @Bean
+    public CeresWebFilter ceresWebFilter(CeresPluginWebHandler ceresPluginWebHandler) {
+        CeresWebFilter ceresWebFilter = new CeresWebFilter();
+        ceresWebFilter.setCeresPluginWebHandler(ceresPluginWebHandler);
+        return ceresWebFilter;
     }
 }
