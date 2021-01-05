@@ -11,7 +11,7 @@ public class CeresWebFilter implements WebFilter{
     
     private CeresPluginWebHandler ceresPluginWebHandler;
     
-    private static final String FILTER_TAG = "/Ceres";
+    private static final String FILTER_TAG = "/ceres";
 
     @Override
     public Mono<Void> filter(@Nullable final ServerWebExchange exchange, @Nullable final WebFilterChain chain) {

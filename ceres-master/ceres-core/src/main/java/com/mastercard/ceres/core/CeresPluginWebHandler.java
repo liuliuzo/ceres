@@ -50,8 +50,6 @@ public class CeresPluginWebHandler implements WebHandler {
         log.info("exchange :{}", exchange);
         CeresContext ceresContext = new CeresContext();
         ceresContext.setCeresRequst(exchange);
-        // Support select plugin chain later
-        // String apiId=exchange.getAttribute("api_id");
         return new DefaultCeresPluginChain(ceresPluginLoader).execute(ceresContext).subscribeOn(scheduler);
     }
 }
