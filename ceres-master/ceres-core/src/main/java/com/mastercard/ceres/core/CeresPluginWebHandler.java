@@ -47,7 +47,6 @@ public class CeresPluginWebHandler implements WebHandler {
 
     @Override
     public Mono<Void> handle(ServerWebExchange exchange) {
-        log.info("exchange :{}", exchange);
         CeresContext ceresContext = new CeresContext();
         ceresContext.setCeresRequst(exchange);
         return new DefaultCeresPluginChain(ceresPluginLoader).execute(ceresContext).subscribeOn(scheduler);

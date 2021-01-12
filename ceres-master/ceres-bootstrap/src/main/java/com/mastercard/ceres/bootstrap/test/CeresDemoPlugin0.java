@@ -27,12 +27,12 @@ public class CeresDemoPlugin0 extends InBoundPlugin {
     
     @Override
     public int pluginOrder() {
-        return 0;
+        return 1;
     }
 
     @Override
     public String pluginName() {
-        return "CeresDemoPlugin1";
+        return "CeresDemoPlugin0";
     }
 
     @Override

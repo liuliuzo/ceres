@@ -49,17 +49,23 @@ public class WebClientOutBoundPlugin extends OutBoundPlugin {
     public Mono<Void> doPlugin(CeresContext context, CeresPluginChain chain) {
         log.info("doPlugin !");
         ServerWebExchange exchange = context.getCeresRequst();
-        ServerHttpResponse response = exchange.getResponse();
+        return chain.execute(context)
+                .doOnError(throwable -> cleanup(exchange))
+                .then(Mono.defer(() -> {
+                    ClientResponse clientResponse = exchange.getAttribute(CLIENT_RESPONSE_ATTR);
+                    if (clientResponse == null) {
+                        return Mono.empty();
+                    }
+                    ServerHttpResponse response = exchange.getResponse();
+                    return response.writeWith(clientResponse.body(BodyExtractors.toDataBuffers()))
+                            .doOnCancel(() -> cleanup(exchange));
+                }));
+    }
+
+    private void cleanup(ServerWebExchange exchange) {
         ClientResponse clientResponse = exchange.getAttribute(CLIENT_RESPONSE_ATTR);
-        if (Objects.isNull(clientResponse) || response.getStatusCode() == HttpStatus.BAD_GATEWAY
-                || response.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
-            return WebFluxResultUtils.result(exchange, "error");
-        } else if (response.getStatusCode() == HttpStatus.GATEWAY_TIMEOUT) {
-            return WebFluxResultUtils.result(exchange, "timeout");
+        if (clientResponse != null) {
+            clientResponse.bodyToMono(Void.class).subscribe();
         }
-        response.setStatusCode(clientResponse.statusCode());
-        response.getCookies().putAll(clientResponse.cookies());
-        response.getHeaders().putAll(clientResponse.headers().asHttpHeaders());
-        return response.writeWith(clientResponse.body(BodyExtractors.toDataBuffers()));
     }
 }

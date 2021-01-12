@@ -18,7 +18,7 @@ import com.mastercard.ceres.plugin.chain.CeresPluginChain;
 
 import reactor.core.publisher.Mono;
 
-@Component
+//@Component
 public class CeresDemoPlugin1 extends InBoundPlugin {
 
     private static final Logger log = LoggerFactory.getLogger(CeresDemoPlugin1.class);

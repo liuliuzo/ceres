@@ -9,12 +9,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.util.CollectionUtils;
 
 import com.mastercard.ceres.core.CeresPluginWebHandler;
 import com.mastercard.ceres.core.CeresWebFilter;
-import com.mastercard.ceres.core.db.config.JPAConfiguration;
 import com.mastercard.ceres.core.start.ApplicationStartListener;
 import com.mastercard.ceres.plugin.CeresPlugin;
 import com.mastercard.ceres.plugin.loader.CeresPluginLoader;
@@ -30,7 +28,6 @@ import com.mastercard.ceres.spring.CeresApplicationContextAware;
  **/
 @Configuration
 @EnableConfigurationProperties(CeresProperties.class)
-@Import({JPAConfiguration.class })
 public class CeresAutoConfiguration {
 
     @Bean
