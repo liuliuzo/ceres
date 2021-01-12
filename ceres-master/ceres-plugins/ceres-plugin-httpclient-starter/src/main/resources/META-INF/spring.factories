@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.mastercard.ceres.plugin.httpclient.autoconfigure.HttpClientPluginAutoConfiguration
+com.liuliu.ceres.plugin.httpclient.autoconfigure.HttpClientPluginAutoConfiguration
