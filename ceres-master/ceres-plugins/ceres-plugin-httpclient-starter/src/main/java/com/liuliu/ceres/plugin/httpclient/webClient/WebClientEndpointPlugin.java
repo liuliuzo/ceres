@@ -80,7 +80,7 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
             headersSpec = bodySpec;
         }
  
-        long timeout = (long) Optional.ofNullable(exchange.getAttribute(Constants.HTTP_TIME_OUT)).orElse(5000L);
+        long timeout = (long) Optional.ofNullable(exchange.getAttribute(Constants.HTTP_TIME_OUT)).orElse(3000L);
         return handleRequestBody(bodySpec, exchange, timeout, chain, context);
     }
 
@@ -115,7 +115,7 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
             log.info("response is committed");
         } else {
             response.beforeCommit(() -> {
-                return WebFluxResultUtils.result(exchange, "{\"id\":null,\"provinceId\":1234,\"cityName\":\"cityName\",\"description\":\"description\"}");
+                return WebFluxResultUtils.result(exchange, "error message");
             });
         }
     }
