@@ -1,4 +1,4 @@
-package com.mastercard.ceres.plugin.loader;
+package com.liuliu.ceres.plugin.loader;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import com.google.common.collect.Maps;
-import com.mastercard.ceres.plugin.CeresPlugin;
-import com.mastercard.ceres.plugin.PluginType;
+import com.liuliu.ceres.plugin.CeresPlugin;
+import com.liuliu.ceres.plugin.PluginType;
 
 /**
  * @className StaticPluginLoader

@@ -1,4 +1,4 @@
-package com.mastercard.ceres.autoconfigure;
+package com.liuliu.ceres.autoconfigure;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.CollectionUtils;
 
-import com.mastercard.ceres.core.CeresPluginWebHandler;
-import com.mastercard.ceres.core.CeresWebFilter;
-import com.mastercard.ceres.core.start.ApplicationStartListener;
-import com.mastercard.ceres.plugin.CeresPlugin;
-import com.mastercard.ceres.plugin.loader.CeresPluginLoader;
-import com.mastercard.ceres.plugin.loader.StaticPluginLoader;
-import com.mastercard.ceres.spring.CeresApplicationContextAware;
+import com.liuliu.ceres.core.CeresPluginWebHandler;
+import com.liuliu.ceres.core.CeresWebFilter;
+import com.liuliu.ceres.core.start.ApplicationStartListener;
+import com.liuliu.ceres.plugin.CeresPlugin;
+import com.liuliu.ceres.plugin.loader.CeresPluginLoader;
+import com.liuliu.ceres.plugin.loader.StaticPluginLoader;
+import com.liuliu.ceres.spring.CeresApplicationContextAware;
 
 /**
  * @className CeresAutoConfiguration

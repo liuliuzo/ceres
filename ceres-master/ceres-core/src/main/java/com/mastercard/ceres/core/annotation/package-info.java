@@ -1,1 +1,1 @@
-package com.mastercard.ceres.core.annotation;
+package com.liuliu.ceres.core.annotation;

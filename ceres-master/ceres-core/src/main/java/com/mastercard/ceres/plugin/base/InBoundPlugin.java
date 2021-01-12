@@ -1,7 +1,7 @@
-package com.mastercard.ceres.plugin.base;
+package com.liuliu.ceres.plugin.base;
 
-import com.mastercard.ceres.plugin.CeresPlugin;
-import com.mastercard.ceres.plugin.PluginType;
+import com.liuliu.ceres.plugin.CeresPlugin;
+import com.liuliu.ceres.plugin.PluginType;
 
 /**
  * @className InBoundPlugin

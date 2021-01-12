@@ -1,4 +1,4 @@
-package com.mastercard.ceres.core.start;
+package com.liuliu.ceres.core.start;
 
 /**
  * @className CereDomain

@@ -1,6 +1,6 @@
-package com.mastercard.ceres.plugin.factory;
+package com.liuliu.ceres.plugin.factory;
 
-import com.mastercard.ceres.plugin.CeresPlugin;
+import com.liuliu.ceres.plugin.CeresPlugin;
 
 /**
  * @className CeresPluginFactory

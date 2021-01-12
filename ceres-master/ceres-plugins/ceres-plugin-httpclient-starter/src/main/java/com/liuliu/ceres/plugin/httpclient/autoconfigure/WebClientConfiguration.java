@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.liuliu.ceres.plugin.httpclient.webClient.WebClientEndpointPlugin;
 import com.liuliu.ceres.plugin.httpclient.webClient.WebClientOutBoundPlugin;
-import com.mastercard.ceres.plugin.CeresPlugin;
+import com.liuliu.ceres.plugin.CeresPlugin;
 import reactor.netty.http.client.HttpClient;
 
 /**

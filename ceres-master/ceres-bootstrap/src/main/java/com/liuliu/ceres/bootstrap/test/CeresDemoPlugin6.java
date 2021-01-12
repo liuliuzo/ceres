@@ -1,6 +1,6 @@
 package com.liuliu.ceres.bootstrap.test;
 
-import static com.mastercard.ceres.constant.Constants.CLIENT_RESPONSE_ATTR;
+import static com.liuliu.ceres.constant.Constants.CLIENT_RESPONSE_ATTR;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
 
-import com.mastercard.ceres.core.CeresContext;
-import com.mastercard.ceres.plugin.base.EndpointPlugin;
-import com.mastercard.ceres.plugin.chain.CeresPluginChain;
+import com.liuliu.ceres.core.CeresContext;
+import com.liuliu.ceres.plugin.base.EndpointPlugin;
+import com.liuliu.ceres.plugin.chain.CeresPluginChain;
 
 import reactor.core.publisher.Mono;
 

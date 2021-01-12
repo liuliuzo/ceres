@@ -1,4 +1,4 @@
-package com.mastercard.ceres.utils;
+package com.liuliu.ceres.utils;
 
 import java.util.Objects;
 import org.springframework.http.MediaType;

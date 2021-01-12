@@ -1,4 +1,4 @@
-package com.mastercard.ceres.bootstrap.controller;
+package com.liuliu.ceres.bootstrap.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

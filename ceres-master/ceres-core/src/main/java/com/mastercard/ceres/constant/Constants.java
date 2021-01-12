@@ -1,4 +1,4 @@
-package com.mastercard.ceres.constant;
+package com.liuliu.ceres.constant;
 
 
 public interface Constants {

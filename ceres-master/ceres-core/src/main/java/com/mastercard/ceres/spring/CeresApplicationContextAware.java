@@ -1,4 +1,4 @@
-package com.mastercard.ceres.spring;
+package com.liuliu.ceres.spring;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

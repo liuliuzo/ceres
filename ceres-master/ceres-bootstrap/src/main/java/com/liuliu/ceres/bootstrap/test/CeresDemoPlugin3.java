@@ -9,13 +9,13 @@ import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.server.ServerWebExchange;
 
-import com.mastercard.ceres.core.CeresContext;
-import com.mastercard.ceres.plugin.base.OutBoundPlugin;
-import com.mastercard.ceres.plugin.chain.CeresPluginChain;
+import com.liuliu.ceres.core.CeresContext;
+import com.liuliu.ceres.plugin.base.OutBoundPlugin;
+import com.liuliu.ceres.plugin.chain.CeresPluginChain;
 
 import reactor.core.publisher.Mono;
 
-import static com.mastercard.ceres.constant.Constants.CLIENT_RESPONSE_ATTR;
+import static com.liuliu.ceres.constant.Constants.CLIENT_RESPONSE_ATTR;
 
 //@Component
 public class CeresDemoPlugin3 extends OutBoundPlugin {

@@ -1,4 +1,4 @@
-package com.mastercard.ceres.spring;
+package com.liuliu.ceres.spring;
 
 import org.springframework.context.ConfigurableApplicationContext;
 

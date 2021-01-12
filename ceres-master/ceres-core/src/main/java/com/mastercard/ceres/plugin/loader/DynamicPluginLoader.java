@@ -1,10 +1,10 @@
-package com.mastercard.ceres.plugin.loader;
+package com.liuliu.ceres.plugin.loader;
 
 import java.util.List;
 import java.util.SortedSet;
 
-import com.mastercard.ceres.plugin.CeresPlugin;
-import com.mastercard.ceres.plugin.PluginType;
+import com.liuliu.ceres.plugin.CeresPlugin;
+import com.liuliu.ceres.plugin.PluginType;
 
 /**
  * @className DynamicPluginLoader

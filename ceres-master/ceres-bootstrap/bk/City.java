@@ -1,6 +1,6 @@
-package com.mastercard.ceres.bootstrap.controller;
+package com.liuliu.ceres.bootstrap.controller;
 
-import com.mastercard.ceres.utils.JsonUtils;
+import com.liuliu.ceres.utils.JsonUtils;
 
 /**
  * 

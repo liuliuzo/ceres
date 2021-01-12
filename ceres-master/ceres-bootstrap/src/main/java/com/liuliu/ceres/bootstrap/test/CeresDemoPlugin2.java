@@ -9,14 +9,14 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
 
-import com.mastercard.ceres.core.CeresContext;
-import com.mastercard.ceres.plugin.base.EndpointPlugin;
-import com.mastercard.ceres.plugin.chain.CeresPluginChain;
-import com.mastercard.ceres.utils.WebFluxResultUtils;
+import com.liuliu.ceres.core.CeresContext;
+import com.liuliu.ceres.plugin.base.EndpointPlugin;
+import com.liuliu.ceres.plugin.chain.CeresPluginChain;
+import com.liuliu.ceres.utils.WebFluxResultUtils;
 
 import reactor.core.publisher.Mono;
 
-import static com.mastercard.ceres.constant.Constants.CLIENT_RESPONSE_ATTR;
+import static com.liuliu.ceres.constant.Constants.CLIENT_RESPONSE_ATTR;
 
 //@Component
 public class CeresDemoPlugin2 extends EndpointPlugin {

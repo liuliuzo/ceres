@@ -1,4 +1,4 @@
-package com.mastercard.ceres.autoconfigure;
+package com.liuliu.ceres.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

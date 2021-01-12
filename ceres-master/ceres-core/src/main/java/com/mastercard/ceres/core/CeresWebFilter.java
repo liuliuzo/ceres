@@ -1,4 +1,4 @@
-package com.mastercard.ceres.core;
+package com.liuliu.ceres.core;
 
 import java.util.Objects;
 
