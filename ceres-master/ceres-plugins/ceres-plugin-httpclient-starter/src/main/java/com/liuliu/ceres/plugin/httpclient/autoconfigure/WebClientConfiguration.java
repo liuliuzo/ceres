@@ -4,13 +4,10 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import com.liuliu.ceres.plugin.httpclient.webClient.WebClientEndpointPlugin;
 import com.liuliu.ceres.plugin.httpclient.webClient.WebClientOutBoundPlugin;
 import com.mastercard.ceres.plugin.CeresPlugin;
-
 import reactor.netty.http.client.HttpClient;
-
 
 /**
  * @className WebClientConfiguration
