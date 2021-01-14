@@ -18,12 +18,11 @@ import org.springframework.web.reactive.function.client.WebClient.RequestBodySpe
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
 import org.springframework.web.server.ServerWebExchange;
 
-import com.liuliu.ceres.plugin.httpclient.webClient.utils.WebClientUtil;
 import com.liuliu.ceres.constant.Constants;
 import com.liuliu.ceres.core.CeresContext;
 import com.liuliu.ceres.plugin.base.EndpointPlugin;
 import com.liuliu.ceres.plugin.chain.CeresPluginChain;
-import com.liuliu.ceres.utils.WebFluxResultUtils;
+import com.liuliu.ceres.plugin.httpclient.webClient.utils.WebClientUtil;
 
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
@@ -67,6 +66,7 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
         ServerHttpRequest request = exchange.getRequest();
         HttpMethod method = HttpMethod.valueOf(exchange.getRequest().getMethodValue());
         WebClient webClient = WebClientUtil.getWebClient("http://127.0.0.1:8080/", httpClient);
+
         RequestBodySpec bodySpec = webClient.method(method).uri("hello/mono").headers(httpHeaders -> {
             httpHeaders.addAll(exchange.getRequest().getHeaders());
             httpHeaders.remove(HttpHeaders.HOST);
@@ -95,29 +95,18 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
         return bodySpec
                 .contentType(buildMediaType(exchange))
                 .exchange()
-                .doOnError(throwable -> onErrorHandle(exchange, throwable))
+                .doOnError(throwable -> log.info(throwable.getMessage()))
                 .timeout(Duration.ofMillis(timeout))
-                .flatMap(res -> doNext(res, exchange, chain, context));
+                .flatMap(clientResponse -> doNext(clientResponse, exchange, chain, context));
     }
 
     private Mono<Void> doNext(ClientResponse clientResponse,ServerWebExchange exchange,CeresPluginChain chain,CeresContext context) {
         ServerHttpResponse response = exchange.getResponse();
         response.getHeaders().putAll(clientResponse.headers().asHttpHeaders());
         response.setStatusCode(clientResponse.statusCode());
+
         exchange.getAttributes().put(Constants.CLIENT_RESPONSE_ATTR, clientResponse);
         return chain.execute(context);
-    }
-
-    private void onErrorHandle(ServerWebExchange exchange, Throwable throwable) {
-        log.error(throwable.getMessage());
-        ServerHttpResponse response = exchange.getResponse();
-        if (response.isCommitted()) {
-            log.info("response is committed");
-        } else {
-            response.beforeCommit(() -> {
-                return WebFluxResultUtils.result(exchange, "error message");
-            });
-        }
     }
 
     private boolean requiresBody(HttpMethod method) {

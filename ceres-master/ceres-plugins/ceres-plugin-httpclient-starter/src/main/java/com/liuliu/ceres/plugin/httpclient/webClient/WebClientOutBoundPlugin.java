@@ -1,21 +1,16 @@
 package com.liuliu.ceres.plugin.httpclient.webClient;
 
-import static com.liuliu.ceres.constant.Constants.CLIENT_RESPONSE_ATTR;
-
-import java.util.Objects;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.server.ServerWebExchange;
 
+import com.liuliu.ceres.constant.Constants;
 import com.liuliu.ceres.core.CeresContext;
 import com.liuliu.ceres.plugin.base.OutBoundPlugin;
 import com.liuliu.ceres.plugin.chain.CeresPluginChain;
-import com.liuliu.ceres.utils.WebFluxResultUtils;
 
 import reactor.core.publisher.Mono;
 
@@ -52,18 +47,20 @@ public class WebClientOutBoundPlugin extends OutBoundPlugin {
         return chain.execute(context)
                 .doOnError(throwable -> cleanup(exchange))
                 .then(Mono.defer(() -> {
-                    ClientResponse clientResponse = exchange.getAttribute(CLIENT_RESPONSE_ATTR);
+                    ClientResponse clientResponse = exchange.getAttribute(Constants.CLIENT_RESPONSE_ATTR);
                     if (clientResponse == null) {
                         return Mono.empty();
                     }
+                    log.trace("WebClientOutBoundPlugin start");
                     ServerHttpResponse response = exchange.getResponse();
+
                     return response.writeWith(clientResponse.body(BodyExtractors.toDataBuffers()))
                             .doOnCancel(() -> cleanup(exchange));
                 }));
     }
 
     private void cleanup(ServerWebExchange exchange) {
-        ClientResponse clientResponse = exchange.getAttribute(CLIENT_RESPONSE_ATTR);
+        ClientResponse clientResponse = exchange.getAttribute(Constants.CLIENT_RESPONSE_ATTR);
         if (clientResponse != null) {
             clientResponse.bodyToMono(Void.class).subscribe();
         }
