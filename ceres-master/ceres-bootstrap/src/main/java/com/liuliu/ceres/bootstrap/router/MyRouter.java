@@ -12,10 +12,10 @@ import org.springframework.web.reactive.function.server.ServerResponse;
  * @author liuliu
  *
  */
-//@Configuration
+@Configuration
 public class MyRouter {
     @Bean
     public RouterFunction<ServerResponse> routeCity(RouterHandler routerHandler) {
-        return RouterFunctions.route(RequestPredicates.GET("/hello"), routerHandler::helloRouter);
+        return RouterFunctions.route(RequestPredicates.GET("/MyRouter"), routerHandler::helloRouter);
     }
 }

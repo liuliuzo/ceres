@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
  * @author liuliu
  *
  */
-//@Component
+@Component
 public class RouterHandler {
     public Mono<ServerResponse> helloRouter(ServerRequest request) {
         return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).body(BodyInserters.fromObject("Hello, City!"));

@@ -1,7 +1,5 @@
 package com.liuliu.ceres.core;
 
-import java.util.Objects;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.server.ServerWebExchange;
@@ -14,8 +12,6 @@ import com.liuliu.ceres.plugin.loader.CeresPluginLoader;
 import lombok.Getter;
 import lombok.Setter;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 
 /**
  * @className CeresHandler
@@ -32,16 +28,7 @@ public class CeresPluginWebHandler implements WebHandler {
     @Setter
     private CeresPluginLoader ceresPluginLoader;
 
-    private Scheduler scheduler;
-
     public CeresPluginWebHandler(CeresPluginLoader ceresPluginLoader,CeresProperties ceresProperties) {
-            String schedulerType = ceresProperties.getSchedulerType();
-            if (Objects.equals(schedulerType, "fixed")) {
-                int threads = Integer.parseInt(System.getProperty(ceresProperties.getWorkThreads(), "" + Math.max((Runtime.getRuntime().availableProcessors() << 1) + 1, 16)));
-                scheduler = Schedulers.newParallel("ceres-work-threads", threads);
-            } else {
-                scheduler = Schedulers.elastic();
-            }
         this.ceresPluginLoader = ceresPluginLoader;
     }
 
@@ -49,6 +36,6 @@ public class CeresPluginWebHandler implements WebHandler {
     public Mono<Void> handle(ServerWebExchange exchange) {
         CeresContext ceresContext = new CeresContext();
         ceresContext.setCeresRequst(exchange);
-        return new DefaultCeresPluginChain(ceresPluginLoader).execute(ceresContext).subscribeOn(scheduler);
+        return new DefaultCeresPluginChain(ceresPluginLoader).execute(ceresContext);
     }
 }

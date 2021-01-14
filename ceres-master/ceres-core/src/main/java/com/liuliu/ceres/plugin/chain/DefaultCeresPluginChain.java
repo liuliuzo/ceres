@@ -29,7 +29,6 @@ public class DefaultCeresPluginChain implements CeresPluginChain {
     private Set<CeresPlugin> inboundPlugins;
     private Set<CeresPlugin> endpointPlugins;
     private Set<CeresPlugin> outboundPlugins;
-    private Set<CeresPlugin> errorPlugins;
 
     private int index;
 
@@ -37,7 +36,6 @@ public class DefaultCeresPluginChain implements CeresPluginChain {
         this.inboundPlugins = ceresPluginLoader.getPluginsByType(PluginType.INBOUND);
         this.endpointPlugins = ceresPluginLoader.getPluginsByType(PluginType.ENDPOINT);
         this.outboundPlugins = ceresPluginLoader.getPluginsByType(PluginType.OUTBOUND);
-        this.errorPlugins = ceresPluginLoader.getPluginsByType(PluginType.ERROR);
         this.plugins.addAll(inboundPlugins);
         this.plugins.addAll(endpointPlugins);
         this.plugins.addAll(outboundPlugins);
