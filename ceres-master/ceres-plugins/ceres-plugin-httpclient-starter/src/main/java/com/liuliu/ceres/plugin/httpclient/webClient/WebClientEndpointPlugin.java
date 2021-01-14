@@ -2,6 +2,7 @@ package com.liuliu.ceres.plugin.httpclient.webClient;
 
 import java.time.Duration;
 import java.util.Optional;
+import java.util.concurrent.TimeoutException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestBodySpec;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.liuliu.ceres.constant.Constants;
@@ -26,6 +28,7 @@ import com.liuliu.ceres.plugin.httpclient.webClient.utils.WebClientUtil;
 
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
+import org.springframework.http.HttpStatus;
 
 /**
  * @className WebClientEndpointPlugin
@@ -67,7 +70,7 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
         HttpMethod method = HttpMethod.valueOf(exchange.getRequest().getMethodValue());
         WebClient webClient = WebClientUtil.getWebClient("http://127.0.0.1:8080/", httpClient);
 
-        RequestBodySpec bodySpec = webClient.method(method).uri("hello/mono").headers(httpHeaders -> {
+        RequestBodySpec bodySpec = webClient.method(method).uri("hello/mono01").headers(httpHeaders -> {
             httpHeaders.addAll(exchange.getRequest().getHeaders());
             httpHeaders.remove(HttpHeaders.HOST);
         });;
@@ -75,8 +78,7 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
         RequestHeadersSpec<?> headersSpec;
         if (requiresBody(method)) {
             headersSpec = bodySpec.body(BodyInserters.fromDataBuffers(request.getBody()));
-        }
-        else {
+        } else {
             headersSpec = bodySpec;
         }
  
@@ -85,8 +87,7 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
     }
 
     private MediaType buildMediaType(final ServerWebExchange exchange) {
-        return MediaType
-                .valueOf(Optional.ofNullable(exchange.getRequest().getHeaders().getFirst(HttpHeaders.CONTENT_TYPE))
+        return MediaType.valueOf(Optional.ofNullable(exchange.getRequest().getHeaders().getFirst(HttpHeaders.CONTENT_TYPE))
                         .orElse(MediaType.APPLICATION_JSON_VALUE));
     }
 
@@ -95,8 +96,9 @@ public class WebClientEndpointPlugin extends EndpointPlugin {
         return bodySpec
                 .contentType(buildMediaType(exchange))
                 .exchange()
-                .doOnError(throwable -> log.info(throwable.getMessage()))
-                .timeout(Duration.ofMillis(timeout))
+                .timeout(Duration.ofMillis(timeout),Mono.error(new TimeoutException("Response took longer than timeout: "+timeout)))
+                .doOnError(throwable -> log.error(throwable.getMessage()))
+                .onErrorMap(TimeoutException.class,th -> new ResponseStatusException(HttpStatus.GATEWAY_TIMEOUT, th.getMessage(), th))
                 .flatMap(clientResponse -> doNext(clientResponse, exchange, chain, context));
     }
 
