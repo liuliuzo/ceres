@@ -14,7 +14,7 @@ import com.liuliu.ceres.plugin.chain.CeresPluginChain;
 
 import reactor.core.publisher.Mono;
 
-@Component
+//@Component
 public class CeresDemoPlugin0 extends InBoundPlugin {
 
     private static final Logger log = LoggerFactory.getLogger(CeresDemoPlugin0.class);
